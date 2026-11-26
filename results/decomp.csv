@@ -1,0 +1,6 @@
+forecaster,reliability,resolution,uncertainty,within_bin_variance,within_bin_covariance,brier
+market,0.0317,0.1779,0.6489,0.0022,0.0073,0.4975
+dixon_coles,0.0676,0.2069,0.6489,0.0020,0.0035,0.5081
+poisson,0.0695,0.2147,0.6489,0.0019,-0.0033,0.5088
+elo,0.0628,0.1776,0.6489,0.0021,0.0070,0.5292
+baseline,0.0158,0.0000,0.6489,0.0000,0.0000,0.6646

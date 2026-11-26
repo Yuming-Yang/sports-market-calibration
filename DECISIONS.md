@@ -38,3 +38,17 @@ The results file includes extra time. For a small share of historical knockout m
 
 **Baseline: draw rate from the 1998-2022 World Cups, the rest split evenly.**
 The draw rate in that data is slightly understated for the same extra-time reason.
+
+## Evaluation
+
+**Bootstrap over matches, paired.**
+A match is the resampled unit, so a match's three outcome probabilities stay together. Comparisons are paired because two forecasters' scores on one match are strongly correlated.
+
+**Three scores, and many comparisons.**
+Brier, log loss and RPS, on three subsets and six pairs, make 54 paired intervals. Some will exclude zero by chance. The README leads with one pre-chosen comparison (market against Dixon-Coles, Brier score, all matches) and treats the others as supporting.
+
+**Favourite-longshot check: one exponent instead of bucket-by-bucket tests.**
+With 312 forecast-outcome pairs, five price buckets have 18 to 112 forecasts each, and bucket-level intervals are too wide to say much. One parameter, alpha in q ~ p^alpha, uses all the data at once. The reliability table is still reported.
+
+**Within-bin terms in the Brier decomposition.**
+Without them, reliability minus resolution plus uncertainty does not equal the Brier score for continuous forecasts, and a reader checking the sum would find a gap.
