@@ -1,0 +1,11 @@
+{
+  "tuned_on": "matches before 2026-01-01; validation 2023-2025, non-friendly",
+  "elo": {
+    "k_scale": 1.0,
+    "home_adv": 100.0
+  },
+  "goals": {
+    "xi": 0.001,
+    "ridge": 0.3
+  }
+}

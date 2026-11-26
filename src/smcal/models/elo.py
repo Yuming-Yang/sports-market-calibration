@@ -125,6 +125,8 @@ def fit_ordered_logit(rating_diff: np.ndarray, outcome: np.ndarray) -> OrderedLo
     """Maximum likelihood. `outcome` holds 0 (home win), 1 (draw), 2 (away win)."""
     x = np.asarray(rating_diff, dtype=float) / 100
     y = np.asarray(outcome)
+    if len(y) < 30 or len(np.unique(y)) < 3:
+        raise ValueError("too few matches, or not all three outcomes, to fit the link")
 
     def nll(theta: np.ndarray) -> float:
         b, log_c = theta
