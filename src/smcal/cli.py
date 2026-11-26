@@ -92,6 +92,23 @@ def cmd_forecast(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_evaluate(args: argparse.Namespace) -> int:
+    from smcal.report import build, figure
+
+    fc = pd.read_csv(args.data / "forecasts.csv")
+    frames = build(fc, RESULTS_DIR)
+    scores = frames["scores"]
+    view = scores[(scores["subset"] == "all")].pivot(
+        index="forecaster", columns="metric", values="mean"
+    )
+    print(view.round(4).to_string())
+    try:
+        figure(fc, RESULTS_DIR / "reliability.png")
+    except ImportError:
+        print("matplotlib not installed; skipped the figure (uv sync --extra plot)")
+    return 0
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(prog="smcal", description="Sports market calibration")
     sub = parser.add_subparsers(dest="command")
@@ -101,6 +118,7 @@ def main(argv: list[str] | None = None) -> int:
     for name, func, help_ in (
         ("tune", cmd_tune, "tune hyperparameters on pre-2026 data"),
         ("forecast", cmd_forecast, "model forecasts for the World Cup matches"),
+        ("evaluate", cmd_evaluate, "score forecasts and write results/"),
     ):
         p = sub.add_parser(name, help=help_)
         p.add_argument("--data", type=Path, default=DATA)

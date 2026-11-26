@@ -82,3 +82,22 @@ def test_reliability_table_counts_every_forecast_once() -> None:
     p, y = random_forecasts(50, 5)
     rows = reliability_table(p, y, n_bins=5)
     assert sum(r["n"] for r in rows) == 150
+
+
+def test_report_builds_every_table(tmp_path) -> None:
+    import pandas as pd
+
+    from smcal.report import FORECASTERS, build
+
+    p, y = random_forecasts(80, 6)
+    fc = pd.DataFrame({"kickoff": pd.date_range("2026-06-11", periods=80, freq="12h")})
+    for cols in FORECASTERS.values():
+        fc[list(cols)] = p
+    fc["outcome"] = np.array(["H", "D", "A"])[y]
+    fc["extra_time"] = False
+    fc["raw_sum"] = 1.0
+    frames = build(fc, tmp_path, n_boot=200)
+    assert set(frames) >= {"scores", "pairs", "decomp", "exponent", "outcome_bias", "reliability"}
+    # Identical forecasters: every paired difference is exactly zero.
+    assert (frames["pairs"]["diff"] == 0).all()
+    assert (tmp_path / "scores.csv").exists()
