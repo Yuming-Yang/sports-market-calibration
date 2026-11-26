@@ -1,0 +1,24 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+
+# Environments and secrets
+.venv/
+.env
+
+# Tooling caches
+.pytest_cache/
+.ruff_cache/
+.coverage
+
+# OS / editors
+.DS_Store
+.idea/
+.vscode/
+
+# Downloaded data. Polymarket price series and raw API responses are never
+# committed (see SPEC, decision D6); `smcal download` rebuilds them.
+data/

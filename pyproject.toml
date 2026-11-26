@@ -1,0 +1,43 @@
+[project]
+name = "sports-market-calibration"
+version = "0.1.0"
+description = "Are prediction-market prices on World Cup matches calibrated probabilities, and do they beat Elo and Poisson models?"
+readme = "README.md"
+authors = [{ name = "Yang Yuming" }]
+requires-python = ">=3.12"
+dependencies = [
+    "numpy>=2.0",
+    "pandas>=2.2.1",
+    "scipy>=1.14",
+]
+
+[project.optional-dependencies]
+plot = ["matplotlib>=3.9"]
+
+[project.scripts]
+smcal = "smcal.cli:main"
+
+[build-system]
+requires = ["uv_build>=0.11.19,<0.12.0"]
+build-backend = "uv_build"
+
+[tool.uv.build-backend]
+module-name = "smcal"
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "SIM", "NPY"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra --strict-markers"
+filterwarnings = ["error"]
+
+[dependency-groups]
+dev = [
+    "pytest>=9.0",
+    "ruff>=0.17",
+]
