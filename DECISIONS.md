@@ -19,7 +19,7 @@ Polymarket's terms (effective 2026-08-11) prohibit scraping and do not grant a r
 ## Models
 
 **Elo link: a symmetric ordered logit with two parameters.**
-Elo gives one rating difference per match. Turning it into three probabilities needs a draw model. The ordered logit treats home and away alike, so at a neutral venue swapping the labels mirrors the forecast. Dropped: a separate draw probability as a function of |difference|, which needs more parameters and fits no better on a 2,000-match validation set.
+Elo gives one rating difference per match. Turning it into three probabilities needs a draw model. The ordered logit treats home and away alike, so at a neutral venue swapping the labels mirrors the forecast. Not tried: a separate draw model as a function of |difference|, which needs more parameters.
 
 **K table from the World Football Elo scheme, scaled by one tuned factor.**
 The K table and goal-difference multiplier are standard. Only a global scale and the home advantage are tuned. Tuning each K separately would overfit the validation years.
@@ -28,7 +28,7 @@ The K table and goal-difference multiplier are standard. Only a global scale and
 Over eight years there are about 290 national teams, many with few matches. The penalty shrinks them towards average and fixes the overall level, which the likelihood alone does not identify. Its strength is tuned with the time decay.
 
 **Dixon-Coles rho fitted jointly, bounded to [-0.3, 0.3].**
-tau can turn negative for very lopsided matches. The bound and a floor on tau keep the likelihood finite; no World Cup match comes near the problem region.
+tau can turn negative for very lopsided matches. The bound and a floor on tau keep the likelihood finite. For the World Cup forecasts the largest expected goal count was 3.8 and the fitted rho was about -0.06, so tau stays positive (it would need an expected goal count above 1/|rho|, about 17).
 
 **Tuning: log loss on 2023-2025 competitive matches, then frozen.**
 Friendlies are left out of validation because teams rotate players in them. The goal models are refitted at the start of each quarter, not each match, to keep tuning fast; the World Cup forecasts refit for each match date. The chosen values are in `config/frozen.json`. The ridge grid was widened once, before any World Cup match was scored, because the first run chose the smallest value.
@@ -45,7 +45,7 @@ The draw rate in that data is slightly understated for the same extra-time reaso
 A match is the resampled unit, so a match's three outcome probabilities stay together. Comparisons are paired because two forecasters' scores on one match are strongly correlated.
 
 **Three scores, and many comparisons.**
-Brier, log loss and RPS, on three subsets and six pairs, make 54 paired intervals. Some will exclude zero by chance. The README leads with one pre-chosen comparison (market against Dixon-Coles, Brier score, all matches) and treats the others as supporting.
+Brier, log loss and RPS, on three subsets and six pairs, make 54 paired intervals. Some will exclude zero by chance. The README leads with one comparison, the SPEC's question: the market against the strongest results-only model (Dixon-Coles), on the Brier score, over all matches. The others are descriptive.
 
 **Favourite-longshot check: one exponent instead of bucket-by-bucket tests.**
 With 312 forecast-outcome pairs, five price buckets have 18 to 112 forecasts each, and bucket-level intervals are too wide to say much. One parameter, alpha in q ~ p^alpha, uses all the data at once. The reliability table is still reported.

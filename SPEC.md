@@ -65,14 +65,14 @@ The headline result is a table of scores with confidence intervals. If the inter
 
 ## Acceptance criteria
 
-- [ ] A test shows that no model input for a match is dated on or after its kickoff.
-- [ ] On a synthetic season generated from known Poisson parameters, the fitted parameters recover the truth within a stated tolerance.
-- [ ] Scoring functions are tested against hand-computed examples, and the Brier decomposition sums to the Brier score.
-- [ ] The pre-match window rule is fixed in configuration and tested on a recorded price series.
-- [ ] Every excluded match is listed with its reason.
-- [ ] Every number in the README comes from one documented command and has a confidence interval.
-- [ ] The README states the sample size next to each result and has a Limitations section.
-- [ ] `uv run pytest` and ruff pass in CI, with no network access in tests (recorded responses only).
+- [x] A test shows that no model input for a match is dated on or after its kickoff.
+- [x] On a synthetic season generated from known Poisson parameters, the fitted parameters recover the truth within a stated tolerance.
+- [x] Scoring functions are tested against hand-computed examples, and the Brier decomposition sums to the Brier score.
+- [x] The pre-match window rule is fixed in configuration and tested on a recorded price series. *Done with hand-made series shaped like the API response; real price series are not committed (D6).*
+- [x] Every excluded match is listed with its reason.
+- [x] Every number in the README comes from one documented command and has a confidence interval. *Descriptive counts (sample size, outcome counts, price-sum range) have none.*
+- [x] The README states the sample size next to each result and has a Limitations section.
+- [x] `uv run pytest` and ruff pass in CI, with no network access in tests (recorded responses only).
 
 ## Milestones
 
