@@ -4,6 +4,8 @@ version = "0.1.0"
 description = "Are prediction-market prices on World Cup matches calibrated probabilities, and do they beat Elo and Poisson models?"
 readme = "README.md"
 authors = [{ name = "Yang Yuming" }]
+license = "MIT"
+license-files = ["LICENSE"]
 requires-python = ">=3.12"
 dependencies = [
     "numpy>=2.0",
