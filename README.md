@@ -82,7 +82,7 @@ The Brier decomposition is in [`results/decomp.csv`](results/decomp.csv). Its pa
 
 ## Design choices
 
-- **The window ends an hour before kickoff.** Line-ups come out about an hour before kickoff, and the models never see them. Ending the window there keeps the information sets closer. In this data prices barely move inside the window: the median number of price changes per outcome is zero.
+- **The window ends an hour before kickoff.** Line-ups come out about an hour before kickoff, and the models never see them. Ending the window there keeps the information sets closer. In this data prices barely move inside the window: in at least half of the matches, one outcome's price did not change inside the window.
 - **Simple normalization.** The three prices summed to between 0.989 and 1.016. At that size, methods that shift mass away from longshots (power or Shin normalization) change probabilities by well under a percentage point.
 - **The outcome comes from the market's resolution, not the results file.** Using the full-time score would mark the market wrong in the five extra-time matches. The full-time score is still used as a check: it may differ from the market only by turning a draw into a win. Any other disagreement would exclude the match. None did.
 - **Paired bootstrap over matches.** A match is the resampled unit, so its three probabilities stay together. Pairing is the point: two forecasters' scores on one match are strongly correlated.
@@ -95,7 +95,7 @@ More detail, including the options that were dropped, is in [DECISIONS.md](DECIS
 ## Data
 
 - Results: [martj42/international_results](https://github.com/martj42/international_results), CC0-1.0, pinned to commit `ca84241`.
-- Prices: Polymarket's public Gamma (`/events`, series 11433) and CLOB (`/prices-history`) endpoints, one-minute fidelity. Polymarket's terms of use restrict copying and redistributing its data, so this repository contains code that downloads the prices and aggregate results computed from them, and no price series.
+- Prices: Polymarket's public Gamma (`/events`, series 11433) and CLOB (`/prices-history`) endpoints, one-minute fidelity. Polymarket's terms of use (effective 2026-08-11) prohibit scraping and grant no research exception. This project uses only the documented public API endpoints, with a delay between requests well under the documented rate limits, and commits no price series: the repository contains the download code and aggregate results computed from the prices.
 
 ## Limitations
 
@@ -106,3 +106,7 @@ More detail, including the options that were dropped, is in [DECISIONS.md](DECIS
 - **Prices are not pure beliefs.** Fees, spreads and capital costs move prices, most of all near 0 and 1. With prices summing to within 1.6% of one, the effect here is small.
 - **Many comparisons.** Only the first paired comparison was chosen in advance as the main question. Treat the others as descriptive.
 - **No profitability claim.** Nothing here says whether trading against the market would have made money. Fees, spreads and execution were not modelled.
+
+## License
+
+MIT. See [LICENSE](LICENSE).
