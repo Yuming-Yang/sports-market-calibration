@@ -1,6 +1,6 @@
 # SPEC: Sports Market Calibration
 
-Status: accepted, 2026-11-26. Drafted 2026-11-15; the author accepted the proposals for every open decision (table at the end).
+Status: accepted, 2026-11-26. The decisions are listed in the table at the end.
 
 ## Problem
 
@@ -88,7 +88,7 @@ Each milestone is one branch and one PR.
 - numpy, pandas, scipy at runtime; matplotlib for figures.
 - `penaltyblog` 1.13.1 has Dixon–Coles and Elo implementations and could serve as a test oracle. Its licence field on PyPI is empty, so the licence must be read from its repository before it is added, even as a development dependency.
 - Polymarket publishes a fee schedule for sports markets (the final's markets carry the field `sports_fees_v3`). Fees do not enter this project, which compares probabilities only.
-- Rate limits and terms of use for the Polymarket endpoints were not read. They must be read before the bulk download in milestone 1.
+- Rate limits and terms of use for the Polymarket endpoints were not read. They must be read before the bulk download in milestone 1. (Both were read before the download; see D6 and DECISIONS.md.)
 
 ## Cost
 
@@ -101,9 +101,9 @@ No paid APIs and no cloud compute.
 - **Information sets differ.** The market sees injuries, line-ups and news. The models see past scores only. A market win is expected; the size of the gap is the interesting part.
 - **Prices are not pure probabilities.** Fees, spreads and capital costs push prices away from beliefs, most of all near 0 and 1.
 
-## Open decisions
+## Decisions
 
-| ID | Decision | Proposal |
+| ID | Decision | Choice |
 | --- | --- | --- |
 | D1 | Scope | 2026 World Cup only for v1 |
 | D2 | Names | Repository `sports-market-calibration`, import name `smcal` |
